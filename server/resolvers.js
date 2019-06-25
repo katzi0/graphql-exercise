@@ -10,11 +10,13 @@ module.exports = {
             const allPlayers = await dataSources.premierLeaugeAPI.getPlayers();
             // we want these in reverse chronological order
             allPlayers.reverse();
+
             const players = paginateResults({
                 after,
                 pageSize,
                 results: allPlayers
             });
+            console.log(players[players.length - 1])
             return {
                 players,
                 cursor: players.length ? players[players.length - 1].cursor : null,

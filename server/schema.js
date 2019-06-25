@@ -2,7 +2,7 @@ const { gql } = require('apollo-server')
 
 const typeDefs = gql`
     type Player {
-        id: Int
+        id: ID!
         photo: String
         team_code: Int
         firstName: String

@@ -13,13 +13,14 @@ class PremierLeaugeAPI extends RESTDataSource {
 
     async getPlayersByTeamID(teamID) {
         const response = await this.get('elements')
-        const allPlayers  = response ? response.filter(player => player.team === teamID.id)  : []
+        const allPlayers = response ? response.filter(player => player.team === teamID.id) : []
         return allPlayers.map(player => this.playerReducer(player))
     }
 
     playerReducer(player) {
         return {
             id: player.id,
+            cursor: player.id,
             firstName: player.first_name,
             secondName: player.second_name,
         }
