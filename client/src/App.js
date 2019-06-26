@@ -2,13 +2,16 @@ import './App.css'
 import React from 'react'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
-import PlayerList from './playersList/PlayersList'
+import PlayerList from './PlayersList/PlayersList'
+import Header from './Header/Header'
+import ButtonAppBar from './AppBar/AppBar'
 
-const client = new ApolloClient({ uri: 'http://172.18.154.17:4000/' })
+const client = new ApolloClient({ uri: 'http://172.18.154.17:5000/' })
 const App = () => (
     <ApolloProvider client={client}>
         <div>
-            <h2>My first Apollo app 🚀</h2>
+            <ButtonAppBar />
+            <Header />
             <PlayerList />
         </div>
     </ApolloProvider>

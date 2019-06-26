@@ -10,10 +10,16 @@ const typeDefs = gql`
         squadNumber: Int
         team: String
     }
+    
+    type Team {
+        id: ID!
+        name: String!
+    }
 
     type Query {
         players(pageSize:Int after:String): PlayersConnection!
         playersByTeam(id: Int): [Player]
+        teams:[Team]
     }
 
     type PlayersConnection {

@@ -17,12 +17,24 @@ class PremierLeaugeAPI extends RESTDataSource {
         return allPlayers.map(player => this.playerReducer(player))
     }
 
+    async getTeams(){
+        const response = await this.get('teams')
+        return Array.isArray(response) ? response.map(team => this.teamReducer(team)) : []
+    }
+
     playerReducer(player) {
         return {
             id: player.id,
             cursor: player.id,
             firstName: player.first_name,
             secondName: player.second_name,
+        }
+    }
+
+    teamReducer(team){
+        return {
+            id: team.id,
+            name: team.name
         }
     }
 

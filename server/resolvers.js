@@ -1,22 +1,19 @@
-const {paginateResults} =  require('./utils')
+const { paginateResults } = require('./utils')
 
 module.exports = {
     Query: {
-        // players: (_, __, { dataSources }) =>
-        //     dataSources.premierLeaugeAPI.getPlayers(),
-        playersByTeam:(_,id,{dataSources}) =>
+        playersByTeam: (_, id, { dataSources }) =>
             dataSources.premierLeaugeAPI.getPlayersByTeamID(id),
         players: async (_, { pageSize = 20, after }, { dataSources }) => {
-            const allPlayers = await dataSources.premierLeaugeAPI.getPlayers();
+            const allPlayers = await dataSources.premierLeaugeAPI.getPlayers()
             // we want these in reverse chronological order
-            allPlayers.reverse();
+            allPlayers.reverse()
 
             const players = paginateResults({
                 after,
                 pageSize,
                 results: allPlayers
-            });
-            console.log(players[players.length - 1])
+            })
             return {
                 players,
                 cursor: players.length ? players[players.length - 1].cursor : null,
@@ -26,7 +23,9 @@ module.exports = {
                     ? players[players.length - 1].cursor !==
                     allPlayers[allPlayers.length - 1].cursor
                     : false
-            };
+            }
         },
+        teams: (_,id , { dataSources }) =>
+            dataSources.premierLeaugeAPI.getTeams()
     }
 }
