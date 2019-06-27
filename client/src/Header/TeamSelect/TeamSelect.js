@@ -13,46 +13,6 @@ import PropTypes from 'prop-types'
 import { gql } from 'apollo-boost'
 import { Query } from 'react-apollo'
 
-const suggestions = [
-    { label: 'Afghanistan' },
-    { label: 'Aland Islands' },
-    { label: 'Albania' },
-    { label: 'Algeria' },
-    { label: 'American Samoa' },
-    { label: 'Andorra' },
-    { label: 'Angola' },
-    { label: 'Anguilla' },
-    { label: 'Antarctica' },
-    { label: 'Antigua and Barbuda' },
-    { label: 'Argentina' },
-    { label: 'Armenia' },
-    { label: 'Aruba' },
-    { label: 'Australia' },
-    { label: 'Austria' },
-    { label: 'Azerbaijan' },
-    { label: 'Bahamas' },
-    { label: 'Bahrain' },
-    { label: 'Bangladesh' },
-    { label: 'Barbados' },
-    { label: 'Belarus' },
-    { label: 'Belgium' },
-    { label: 'Belize' },
-    { label: 'Benin' },
-    { label: 'Bermuda' },
-    { label: 'Bhutan' },
-    { label: 'Bolivia, Plurinational State of' },
-    { label: 'Bonaire, Sint Eustatius and Saba' },
-    { label: 'Bosnia and Herzegovina' },
-    { label: 'Botswana' },
-    { label: 'Bouvet Island' },
-    { label: 'Brazil' },
-    { label: 'British Indian Ocean Territory' },
-    { label: 'Brunei Darussalam' },
-].map(suggestion => ({
-    value: suggestion.label,
-    label: suggestion.label,
-}))
-
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
@@ -299,6 +259,7 @@ export default function TeamSelect() {
     const GET_TEAMS = gql`
         query {
             teams{
+                id
                 name
             }
         }
@@ -308,8 +269,7 @@ export default function TeamSelect() {
             {({ loading, error, data }) => {
                 if (loading) return '...loading'
                 if (error) return `error ${error.message}`
-                const teamNames = data.teams.map(team => ({ label: team.name }))
-                console.log(teamNames)
+                const teamNames = data.teams.map(team => ({ label: team.name, id: team.id }))
                 return (
                     <div className={classes.root}>
                         <NoSsr>
@@ -335,7 +295,7 @@ export default function TeamSelect() {
                 )
 
             }}
-                </Query>
+        </Query>
 
-                )
-            }
+    )
+}

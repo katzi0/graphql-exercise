@@ -3,34 +3,32 @@ import { Query } from 'react-apollo'
 import { gql } from 'apollo-boost'
 
 
-const PlayerList = () => (
-    <Query
-        query={gql`
-            {
-                players{
-                    players{
-                      id
-                    }
-                }
+const PlayerList = () => {
+    const getPlayersByTeam = gql`
+        query {
+            playersByTeam(id:1){
+                id
+                firstName
+                secondName
             }
-`}
-        variables={{
-            offset: 0,
-            limit: 10
-        }}
-        fetchPolicy="cache-and-network">
-        {({ loading, error, data, fetchMore }) => {
-            if (loading) return <p>Loading...</p>
-            if (error) return <p>Error :(</p>
+        }
+    `
+    return (
+        <Query query={getPlayersByTeam}>
 
-            return data.players.players.map(({ id }) => (
-                <div key={id}>
-                    <p>{id}</p>
-                </div>
-            ))
-        }}
+            {({ loading, error, data }) => {
+                if (loading) return <p>Loading...</p>
+                if (error) return <p>Error :(</p>
 
-    </Query>
-)
+                return data.playersByTeam.map(({ id, firstName, secondName }) => (
+                    <div key={id}>
+                        <p>{firstName} {secondName}</p>
+                    </div>
+                ))
+            }}
+        </Query>
+    )
+
+}
 
 export default PlayerList
