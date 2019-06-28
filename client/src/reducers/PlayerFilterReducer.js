@@ -1,4 +1,4 @@
-import { SET_MAIN_FILTER } from '../actions/PlayerFilterActions'
+import { SET_MAIN_FILTER } from '../actions'
 
 const initalState = {
     mainFilter: null,
@@ -11,9 +11,10 @@ export default function PlayerFilterReducer(state = initalState, action) {
         return initalState
     }
     switch (action.type) {
-        case SET_MAIN_FILTER: {
+        case SET_MAIN_FILTER:
             return { ...state, mainFilter: action.filter }
-        }
+        default: 
+            return state
     }
-    return state
+    
 }
