@@ -14,6 +14,7 @@ const typeDefs = gql`
     type Team {
         id: ID!
         name: String!
+        selected: Boolean!
     }
 
     type Query {

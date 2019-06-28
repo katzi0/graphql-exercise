@@ -34,7 +34,8 @@ class PremierLeaugeAPI extends RESTDataSource {
     teamReducer(team){
         return {
             id: team.id,
-            name: team.name
+            name: team.name,
+            selected: false
         }
     }
 
